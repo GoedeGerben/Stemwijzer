@@ -32,48 +32,23 @@ function vorige() {
 		}
 	}
 }//laat je terug gaan naar de vorige pagina of het hoofdscherm.
-const pvda = ['eens' , 'eens' , 'eens' , 'eens' , 'eens']
-const xs4all = ['geen' , 'geen' , 'geen' , 'geen' , 'geen']
-const partij = ['eens' , 'geen' , 'eens' , 'oneens' , 'geen'];
-const partijen = [partij , pvda , xs4all];
-var resultaat = [0 , 0 , 0 , 0 , 0 , 0 , 0 , 0];
-
 
 
 function scores(){
-	for (var i = 0; i < antwoorden.length; i++) {
-		if (antwoorden[i] === 'overslaan') {
-			alert("U heeft nog vraag openstaan.");
-			vraag = i;
-			console.log("vraag" + vraag)
-			volgende();
-			i = antwoorden.length;
-		}
-	}
+	for (var a = subjects.length - 1; a >= 0; a--) {
+		var stelling = 0;
+		var partijen = 0;
 
-
-	if (subjects[0].parties[0].position === antwoorden) {
-		alert("hello world")
-	}
-	
-
-
-
-	/*var a = 0; //stelling
-	var b = 0; //partij stelling
-	var c = 0; //partij
-
-	while(partijen.length > c) {
-		while(antwoorden.length > a) {
-			if (antwoorden[a] === partijen[c[a]]) {
-				resultaat[b]++
+		for (var b = subjects[stelling].parties.length - 1; b >= 0; b--) {
+			if (subjects[stelling].parties[partijen].position === antwoorden[stelling]) {
+				console.log(subjects[stelling].parties[partijen].name + " +1")
 			}
-			a++
-			console.log(resultaat)
+			partijen++
+			console.log("het einde van een position")
 		}
-		c++
-		console.log('scores' + c)
-	}*/
+		stelling++
+		console.log("het einde van een subject")
+	}
 }
 
 
