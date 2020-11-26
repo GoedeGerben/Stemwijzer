@@ -1,25 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Vraag1</title>
+	<title>StemWijzer Tweede Kamer 2017</title>
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
-<body onload="volgende()">
+<body class="w3-xlarge" onload="volgende()">
 
-	progress bar
+	<div>
+  		<div id="progressBar" class="w3-blue" style="height:12px;width:5%"></div>
+	</div><!-- progress bar laat zien op welke vraag je zit. -->
 
 	<button onclick="vorige()">terug button</button>
 
-	<div id="stelling1">stelling</div>
-	<div id="contentStelling1">content</div>
+	<div id="stelling" class="w3-text-blue">stelling</div>
+	<div id="contentStelling">content</div>
 
-	<div id = "buttons">
-		<button onclick="volgende('pro')">eens</button>
-		<button onclick="volgende('geen')">Geen van beide</button>
-		<button onclick="volgende('contra')">oneens</button>
-		<button onclick="volgende('overslaan')">Sla deze vraag over</button>
-
-		<img src="" alt="textbubbels"> > Wat vinden de partijen
+	<div id="buttons">
+		<button class="w3-button w3-round-large w3-black w3-hover-blue" onclick="volgende('pro')">eens</button>
+		<button class="w3-button w3-round-large w3-black w3-hover-blue" onclick="volgende('geen')">Geen van beide</button>
+		<button class="w3-button w3-round-large w3-black w3-hover-blue" onclick="volgende('contra')">oneens</button>
+		<p id="overslaan" class="w3-text-grey" onclick="volgende('overslaan')">Sla deze vraag over</p>
 	</div>
+
+	<img src="" alt="textbubbels"> Wat vinden de partijen?
+
 	<script type="text/javascript" src="main.js"></script>
 	<script type="text/javascript" src="testdata.js"></script>
 </body>

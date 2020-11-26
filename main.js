@@ -1,5 +1,5 @@
 var vraag = 0;
-var antwoorden = ['geen', 'geen', 'geen', 'geen']
+var antwoorden = [];
 
 function volgende() {
 	if (vraag === subjects.length) {
@@ -29,9 +29,12 @@ function vorige() {
 }//laat je terug gaan naar de vorige pagina of het hoofdscherm.
 
 function zetVragen(){
-	document.getElementById("stelling1").innerHTML = (vraag + 1) + ". " + subjects[vraag].title;
-	document.getElementById("contentStelling1").innerHTML = subjects[vraag].statement;
-}
+	document.getElementById("stelling").innerHTML = (vraag + 1) + ". " + subjects[vraag].title;
+	document.getElementById("contentStelling").innerHTML = subjects[vraag].statement;
+
+	document.getElementById("progressBar").style.width = (vraag + 1) / subjects.length * 100 + "%";
+	console.log(vraag + " + " + subjects.length + " + " + (vraag + 1) / subjects.length * 100);
+}// laat de vragen en de progress bar zien op de pagina
 
 function scores(){
 	var overgeslagen = false;
