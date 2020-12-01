@@ -32,6 +32,14 @@ function zetVragen(){
 	document.getElementById("stelling").innerHTML = (vraag + 1) + ". " + subjects[vraag].title;
 	document.getElementById("contentStelling").innerHTML = subjects[vraag].statement;
 
+	for (var i = document.getElementsByTagName("button").length - 1; i >= 1; i--) {
+		document.getElementsByTagName("button")[i].style.backgroundColor = "black";
+	}
+
+	if (antwoorden[vraag] !== undefined && antwoorden[vraag] !== 'overslaan') {
+		document.getElementById(antwoorden[vraag]).style.backgroundColor = "blue";
+	}
+
 	document.getElementById("progressBar").style.width = (vraag + 1) / subjects.length * 100 + "%";
 	console.log(vraag + " + " + subjects.length + " + " + (vraag + 1) / subjects.length * 100);
 }// laat de vragen en de progress bar zien op de pagina
@@ -48,18 +56,18 @@ function scores(){
 
 	if (overgeslagen === false) {
 		for (var a = subjects.length - 1; a >= 0; a--) {
-			var stelling = 0;
 			var partijen = 0;
 
-			for (var b = subjects[stelling].parties.length - 1; b >= 0; b--) {
-				if (subjects[stelling].parties[partijen].position === antwoorden[stelling]) {
-					console.log(subjects[stelling].parties[partijen].name + " +1")
+			for (var b = subjects[a].parties.length - 1; b >= 0; b--) {
+				if (subjects[a].parties[partijen].position === antwoorden[a]) {
+					console.log(subjects[a].parties[partijen].name + " +1")
+				}else {
+					console.log(subjects[a].parties[partijen].name + subjects[a].parties[partijen].position + " !== " + antwoorden[a])
 				}
 				partijen++
 				console.log("het einde van een position")
 			}
-			stelling++
-			console.log("het einde van een subject")
+			console.log("het einde van een subject " + subjects[a].title)
 		}
 	}else {
 		alert("je hebt een vraag overgeslagen")
