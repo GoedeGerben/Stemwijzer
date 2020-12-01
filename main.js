@@ -62,7 +62,7 @@ function scores(){
 				if (subjects[a].parties[partijen].position === antwoorden[a]) {
 					console.log(subjects[a].parties[partijen].name + " +1")
 				}
-				
+
 				partijen++
 				console.log("het einde van een position")
 			}
@@ -72,4 +72,13 @@ function scores(){
 		alert("je hebt een vraag overgeslagen")
 		zetVragen();
 	}
+}
+
+var temp = [];
+
+for (var i = parties.length - 1; i >= 0; i--) {
+	temp[i] = {
+	"partij" : parties[i].name,
+	"score" : 0
+}
 }
