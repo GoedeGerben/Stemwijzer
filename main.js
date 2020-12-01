@@ -2,14 +2,14 @@ var vraag = 0;
 var antwoorden = [];
 
 function volgende() {
+	if (vraag !== 0) {
+		antwoorden[vraag - 1] = arguments[0]
+	} 
+
 	if (vraag === subjects.length) {
 		scores();
 	}else {	
 		zetVragen()
-	} 
-
-	if (vraag !== 0) {
-		antwoorden[vraag - 1] = arguments[0]
 	} 
 
 	vraag++
@@ -61,9 +61,8 @@ function scores(){
 			for (var b = subjects[a].parties.length - 1; b >= 0; b--) {
 				if (subjects[a].parties[partijen].position === antwoorden[a]) {
 					console.log(subjects[a].parties[partijen].name + " +1")
-				}else {
-					console.log(subjects[a].parties[partijen].name + subjects[a].parties[partijen].position + " !== " + antwoorden[a])
 				}
+				
 				partijen++
 				console.log("het einde van een position")
 			}
