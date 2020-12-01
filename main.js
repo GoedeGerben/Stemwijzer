@@ -1,5 +1,13 @@
 var vraag = 0;
 var antwoorden = [];
+var temp = [];
+
+for (var i = parties.length - 1; i >= 0; i--) {
+	temp[i] = {
+	"partij" : parties[i].name,
+	"score" : 0
+}
+}
 
 function volgende() {
 	if (vraag !== 0) {
@@ -60,7 +68,8 @@ function scores(){
 
 			for (var b = subjects[a].parties.length - 1; b >= 0; b--) {
 				if (subjects[a].parties[partijen].position === antwoorden[a]) {
-					console.log(subjects[a].parties[partijen].name + " +1")
+					temp[a].score = temp[a].score + 1;
+					console.log(temp[a])
 				}
 
 				partijen++
@@ -74,11 +83,7 @@ function scores(){
 	}
 }
 
-var temp = [];
 
-for (var i = parties.length - 1; i >= 0; i--) {
-	temp[i] = {
-	"partij" : parties[i].name,
-	"score" : 0
-}
-}
+
+
+console.log(temp)
