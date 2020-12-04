@@ -6,28 +6,29 @@
 </head>
 <body class="w3-xlarge" onload="volgende()">
 
-	<div>
-  		<div id="progressBar" class="w3-blue" style="height:12px;width:5%"></div>
-	</div><!-- progress bar laat zien op welke vraag je zit. -->
+		<div>
+	  		<div id="progressBar" class="w3-blue" style="height:12px;width:5%"></div>
+		</div><!-- progress bar laat zien op welke vraag je zit. -->
 
-	<button onclick="vorige()">terug button</button>
+	<div id="vragen">	
+		<button onclick="vorige()">terug button</button>
 
-	<div id="stelling" class="w3-text-blue">stelling</div>
-	<div id="contentStelling">content</div>
+		<div id="stelling" class="w3-text-blue">stelling</div>
+		<div id="contentStelling">content</div>
 
-	<div id="buttons">
-		<button id="pro" class="w3-button w3-round-large w3-hover-blue" style="background-color: black; color: white" onclick="volgende('pro')">eens</button>
-		<button id="geen" class="w3-button w3-round-large w3-hover-blue" style="background-color: black; color: white" onclick="volgende('geen')">Geen van beide</button>
-		<button id="contra" class="w3-button w3-round-large w3-hover-blue" style="background-color: black; color: white" onclick="volgende('contra')">oneens</button>
-		<p id="overslaan" class="w3-text-grey" onclick="volgende('overslaan')">Sla deze vraag over</p>
+		<div id="buttons">
+			<button id="pro" class="w3-button w3-round-large w3-hover-blue" style="background-color: black; color: white" onclick="volgende('pro')">eens</button>
+			<button id="geen" class="w3-button w3-round-large w3-hover-blue" style="background-color: black; color: white" onclick="volgende('geen')">Geen van beide</button>
+			<button id="contra" class="w3-button w3-round-large w3-hover-blue" style="background-color: black; color: white" onclick="volgende('contra')">oneens</button>
+			<p id="overslaan" class="w3-text-grey" onclick="volgende('overslaan')">Sla deze vraag over</p>
+		</div>
+
+		<img src="" alt="textbubbels"> Wat vinden de partijen?
 	</div>
 
 	<div id="partijResultaten">
 		
 	</div>
-
-
-	<img src="" alt="textbubbels"> Wat vinden de partijen?
 
 	<script type="text/javascript" src="testdata.js"></script>
 	<script type="text/javascript" src="main.js"></script>

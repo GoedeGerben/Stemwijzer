@@ -82,19 +82,11 @@ function scores(){
 		zetVragen();
 	}
 
-	/*window.location.href = 'resultaten.html'*/
+	document.getElementById("vragen").remove()
 
-	for (var i = subjects.length - 1; i >= 0; i--) {
-		var god = document.createElement("PARAGRAPH");
-		document.getElementById("partijResultaten").appendChild(god);	
-		god.innerHTML = totaleScore[i].partij + " " + (totaleScore[i].score / subjects.length * 100)+ "%" + "<br>";
-		console.log("texttest")
-
+	for (var c = subjects.length - 1; c >= 0; c--) {
+		var creatie = document.createElement("PARAGRAPH");
+		document.getElementById("partijResultaten").appendChild(creatie);	
+		creatie.innerHTML = totaleScore[c].partij + " " + (totaleScore[c].score / subjects.length * 100)+ "%" + "<br>";
 	}
-
-	
-	
-
-
-
 }
