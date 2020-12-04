@@ -81,4 +81,20 @@ function scores(){
 		alert("je hebt een vraag overgeslagen")
 		zetVragen();
 	}
+
+	/*window.location.href = 'resultaten.html'*/
+
+	for (var i = subjects.length - 1; i >= 0; i--) {
+		var god = document.createElement("PARAGRAPH");
+		document.getElementById("partijResultaten").appendChild(god);	
+		god.innerHTML = totaleScore[i].partij + " " + (totaleScore[i].score / subjects.length * 100)+ "%" + "<br>";
+		console.log("texttest")
+
+	}
+
+	
+	
+
+
+
 }
