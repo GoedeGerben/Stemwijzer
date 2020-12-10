@@ -84,7 +84,7 @@ function scores(){
 			document.getElementById("partijResultaten").appendChild(creatie);	
 			creatie.innerHTML = totaleScore[c].partij + " " + (totaleScore[c].score / subjects.length * 100)+ "%" + "<br>";
 		}//laat de partijen op de pagina zien
-		//partijen van hoog tot laag in een array zetten om de resultaten op volgorde te zetten?
+		//varriabel totale score gebruiken om partijen op volgorden te zetten.
 	}else {
 		alert("je hebt een vraag overgeslagen")
 		zetVragen();
