@@ -71,22 +71,24 @@ function scores(){
 					totaleScore[a].score = totaleScore[a].score + 1;
 					console.log(totaleScore[a])
 				}
-
 				partijen++
 				console.log("het einde van een position")
-			}
+			}//vergelijkt een de ingevulde antwoorden met de antwoorden van een partij
 			console.log("het einde van een subject " + subjects[a].title)
-		}
+		}// loopt door alle partijen heen
+
+		document.getElementById("vragen").remove()
+
+		for (var c = subjects.length - 1; c >= 0; c--) {
+			var creatie = document.createElement("PARAGRAPH");
+			document.getElementById("partijResultaten").appendChild(creatie);	
+			creatie.innerHTML = totaleScore[c].partij + " " + (totaleScore[c].score / subjects.length * 100)+ "%" + "<br>";
+		}//laat de partijen op de pagina zien
+		//partijen van hoog tot laag in een array zetten om de resultaten op volgorde te zetten?
 	}else {
 		alert("je hebt een vraag overgeslagen")
 		zetVragen();
-	}
+	}//Geeft een alert als je een vraag hebt overgeslagen en brengt je terug naar die vraag
 
-	document.getElementById("vragen").remove()
-
-	for (var c = subjects.length - 1; c >= 0; c--) {
-		var creatie = document.createElement("PARAGRAPH");
-		document.getElementById("partijResultaten").appendChild(creatie);	
-		creatie.innerHTML = totaleScore[c].partij + " " + (totaleScore[c].score / subjects.length * 100)+ "%" + "<br>";
-	}
+	
 }
