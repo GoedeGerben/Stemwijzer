@@ -2,11 +2,11 @@ var vraag = 0;
 var antwoorden = [];
 var totaleScore = [];
 
-for (var i = parties.length - 1; i >= 0; i--) {
+for (let i in parties) {
 	totaleScore[i] = {
-	"partij" : parties[i].name,
-	"score" : 0
-}
+		"partij" : parties[i].name,
+		"score" : 0
+	}
 }
 
 function volgende() {
@@ -63,10 +63,10 @@ function scores(){
 	}
 
 	if (overgeslagen === false) {
-		for (var a = subjects.length - 1; a >= 0; a--) {
+		for (let a in subjects) {
 			var partijen = 0;
 
-			for (var b = subjects[a].parties.length - 1; b >= 0; b--) {
+			for (let b in subjects[a].parties) {
 				if (subjects[a].parties[partijen].position === antwoorden[a]) {
 					totaleScore[a].score = totaleScore[a].score + 1;
 					console.log(totaleScore[a])
@@ -79,16 +79,21 @@ function scores(){
 
 		document.getElementById("vragen").remove()
 
+
+
+
+
+
+
+
 		for (var c = subjects.length - 1; c >= 0; c--) {
 			var creatie = document.createElement("PARAGRAPH");
 			document.getElementById("partijResultaten").appendChild(creatie);	
 			creatie.innerHTML = totaleScore[c].partij + " " + (totaleScore[c].score / subjects.length * 100)+ "%" + "<br>";
 		}//laat de partijen op de pagina zien
-		//varriabel totale score gebruiken om partijen op volgorden te zetten.
+		//varriabel totalescore gebruiken om partijen op volgorden te zetten.
 	}else {
 		alert("je hebt een vraag overgeslagen")
 		zetVragen();
 	}//Geeft een alert als je een vraag hebt overgeslagen en brengt je terug naar die vraag
-
-	
-}
+}	
