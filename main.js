@@ -82,6 +82,7 @@ function scores(){
 		for (var c = subjects.length - 1; c >= 0; c--) {
 			var creatie = document.createElement("PARAGRAPH");
 			document.getElementById("partijResultaten").appendChild(creatie);	
+			totaleScore.sort(dynamicSort("score"));
 			creatie.innerHTML = totaleScore[c].partij + " " + (totaleScore[c].score / subjects.length * 100)+ "%" + "<br>";
 		}//laat de partijen op de pagina zien
 		//varriabel totale score gebruiken om partijen op volgorden te zetten.
@@ -89,6 +90,23 @@ function scores(){
 		alert("je hebt een vraag overgeslagen")
 		zetVragen();
 	}//Geeft een alert als je een vraag hebt overgeslagen en brengt je terug naar die vraag
-
-	
 }
+
+
+
+
+
+function dynamicSort(property) {
+    var sortOrder = 1;
+    if(property[0] === "-") {
+        sortOrder = -1;
+        property = property.substr(1);
+    }
+    return function (a,b) {
+        /* next line works with strings and numbers, 
+         * and you may want to customize it to your needs
+         */
+        var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+        return result * sortOrder;
+    }
+}//sorteert arrays met objects
