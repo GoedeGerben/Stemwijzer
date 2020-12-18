@@ -80,6 +80,15 @@ function scores(){
 		document.getElementById("vragen").remove()
 
 		for (var c = subjects.length - 1; c >= 0; c--) {
+
+			
+
+
+
+
+
+
+
 			var creatie = document.createElement("PARAGRAPH");
 			document.getElementById("partijResultaten").appendChild(creatie);	
 			totaleScore.sort(dynamicSort("score"));
