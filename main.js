@@ -1,6 +1,7 @@
 var vraag = 0;
 var antwoorden = [];
 var totaleScore = [];
+var dubbelleVragen = []; 
 
 for (let i in parties) {
 	totaleScore[i] = {
@@ -79,13 +80,6 @@ function scores(){
 
 		document.getElementById("vragen").remove()
 
-
-
-
-
-
-
-
 		for (var c = subjects.length - 1; c >= 0; c--) {
 			var creatie = document.createElement("PARAGRAPH");
 			document.getElementById("partijResultaten").appendChild(creatie);	
@@ -97,9 +91,6 @@ function scores(){
 		alert("je hebt een vraag overgeslagen")
 		zetVragen();
 	}//Geeft een alert als je een vraag hebt overgeslagen en brengt je terug naar die vraag
-<<<<<<< HEAD
-}	
-=======
 }
 
 
@@ -120,4 +111,32 @@ function dynamicSort(property) {
         return result * sortOrder;
     }
 }//sorteert arrays met objects
->>>>>>> main
+
+/*Welke onderwerpen vindt u belangrijk?
+	Een loop maken die elke subjects[].title uit testdata.js pakt en 
+	op de pagina zet als knop.
+
+	in de function "scores" bij de derde for loop een if statement 
+	zetten en de geselecteerde statements dubbel mee laten tellen
+
+Kies de partijen die u mee wilt nemen in het resultaat
+	Een loop maken die elke parties[].name uit testdata.js pakt en 
+	op de pagina zet als knop.
+
+	in de function "scores" bij de LAATSTE for loop een if statement 
+	zetten en de geselecteerde partijen op de pagina neerzet.
+
+
+
+	*/
+
+	for (let c in subjects) {
+		subjects[c].title
+
+		var creatie = document.createElement("BUTTON");
+		document.getElementById("partijResultaten").appendChild(creatie);
+		creatie.innerHTML = subjects[c].title
+		creatie.onclick = 
+			
+	}
+
