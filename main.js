@@ -1,6 +1,7 @@
 var vraag = 0;
 var antwoorden = [];
 var totaleScore = [];
+var meeTellen = [];
 
 for (var i = parties.length - 1; i >= 0; i--) {
 	totaleScore[i] = {
@@ -15,7 +16,24 @@ function volgende() {
 	} 
 
 	if (vraag === subjects.length) {
-		scores();
+		//button voor grote partijen
+
+		for (var i = 0; i <= parties.length - 1; i++) {
+			var creatie = document.createElement("PARAGRAPH");
+			document.getElementById("partijResultaten").appendChild(creatie);
+			var tweedeCreatie = document.createElement("BR");
+			document.getElementById("partijResultaten").appendChild(tweedeCreatie);
+			creatie.id = i;
+			creatie.innerHTML = parties[i].name;
+			/*creatie.onclick = function() {partijLatenTellen(i ,i);};*/
+			creatie.setAttribute('onclick', 'partijLatenTellen( " ' + i , i + ' " )');
+		}
+
+		var creatie = document.createElement("PARAGRAPH");
+		document.getElementById("partijResultaten").appendChild(creatie);
+		creatie.innerHTML = "Volgende";
+		creatie.onclick = function() {scores();};
+		
 	}else {	
 		zetVragen()
 	} 
@@ -80,15 +98,6 @@ function scores(){
 		document.getElementById("vragen").remove()
 
 		for (var c = subjects.length - 1; c >= 0; c--) {
-
-			
-
-
-
-
-
-
-
 			var creatie = document.createElement("PARAGRAPH");
 			document.getElementById("partijResultaten").appendChild(creatie);	
 			totaleScore.sort(dynamicSort("score"));
@@ -119,3 +128,16 @@ function dynamicSort(property) {
         return result * sortOrder;
     }
 }//sorteert arrays met objects
+
+
+function partijLatenTellen(naamNummer , id) {
+	console.log("naam nummer en id", naamNummer , " en " , id)
+	console.log("var meetellen" , meeTellen)
+	if (naamNummer === 0) {
+		document.getElementById(id).setAttribute('onclick', 'partijLatenTellen( " ' + id + ',' + id+ ' " )');
+		meeTellen[id] = null;
+	}else {
+		document.getElementById(id).setAttribute('onclick', 'partijLatenTellen( " ' + 0 + ',' + id+ ' " )');
+		meeTellen[id] = parties[naamNummer].name;
+	}
+}
