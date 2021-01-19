@@ -1,52 +1,72 @@
-var vraag = 0;
-var antwoorden = [];
-var totaleScore = [];
-var meeTellen = [];
-var dubbelTellen = [];
+var vraag = 0;//slaat op op welke vraag de gebruiker zit
+var antwoorden = [];//slaat de antwoorden van de gebruiker op
+var totaleScore = [];//slaat de totale score van de partijen op nadat die vergeleken zijn met de antwoorden van de gebruiker
+var meeTellen = [];//slaat op welke partijen de gebruiker mee wilt laten tellen
+var dubbelTellen = [];//slaat op welke onderwerpen de gebruiker belangrijk vind
+var groot = false;//slaat op of de gebruiker alleen grote partijen wilt laten zien
+var seculiere = false;//slaat op of de gebruiker alleen seculiere partijen wilt laten zien
+const grotePartij = 15;//de criteria waaraan een partij moet voldoen om een grote partij te zijn
 
+//zet alle partijen als objects in de array totale score 
 for (let i in parties) {
 	totaleScore[i] = {
 		"partij" : parties[i].name,
 		"score" : 0
 	}
 }
-//dit laat de volgende vraag zien
+
+/*slaat het antwoord op en laat de volgende vraag zien als het niet de laatste vraag is.
+Als het wel de laatste vraag is dan kijkt hij of er een vraag is overgeslagen. Als dit 
+waar is dan word je terug gestuurd naar de overgeslagen vraag. als dit niet waar is
+dan word je naar de onderwerp selectie gestuurd.*/
 function volgende() {
 	if (vraag !== 0) {
 		antwoorden[vraag - 1] = arguments[0]
 	} 
 
 	if (vraag === subjects.length) {
-		//button voor grote partijen
-		laatOnderwerpenZien();
-		
+		var overgeslagen = false;
+
+		for (var i = antwoorden.length - 1; i >= 0; i--) {
+			if (antwoorden[i] == 'overslaan') {
+				overgeslagen = true;
+				vraag = i;
+			}	
+		}
+
+		if (overgeslagen === false) {
+			laatOnderwerpenZien();
+		}else {
+			alert("je hebt een vraag overgeslagen")
+			zetVragen();
+		}//Geeft een alert als je een vraag hebt overgeslagen en brengt je terug naar die vraag
 	}else {	
 		zetVragen()
 	} 
-
 	vraag++
 	console.log(vraag)
-}// laat je gaan naar de volgende pagina
+}
 
+//laat je naar de vorige vraag toe gaan. Als de gebruiker op de eerste vraag zit dan krijgt de gebruiker een confirm om te kiezen om naar de hoofdpagina te gaan
 function vorige() {
 	if (vraag !== 1) {
 		vraag = vraag - 2;
 		zetVragen()
 		vraag++
 	}else {
-		if (confirm('weet je zeker dat je terug gaar de hoofd pagina wilt gaan?')) {
+		if (confirm('weet je zeker dat je terug gaar de hoofdpagina wilt gaan?')) {
 			window.location.href = 'main.html'
 		}
 	}
-}//laat je terug gaan naar de vorige pagina of het hoofdscherm.
+}
 
+//zet de vragen op de pagina, update de progress bar en kleurt de knoppen blauw als dat een eerder antwoord was.
 function zetVragen(){
 	document.getElementById("stelling").innerHTML = (vraag + 1) + ". " + subjects[vraag].title;
 	document.getElementById("contentStelling").innerHTML = subjects[vraag].statement;
-
-	for (var i = document.getElementsByTagName("button").length - 1; i >= 1; i--) {
-		document.getElementsByTagName("button")[i].style.backgroundColor = "black";
-	}
+	document.getElementById("pro").style.backgroundColor = "black";
+	document.getElementById("geen").style.backgroundColor = "black";
+	document.getElementById("contra").style.backgroundColor = "black";
 
 	if (antwoorden[vraag] !== undefined && antwoorden[vraag] !== 'overslaan') {
 		document.getElementById(antwoorden[vraag]).style.backgroundColor = "blue";
@@ -54,19 +74,12 @@ function zetVragen(){
 
 	document.getElementById("progressBar").style.width = (vraag + 1) / subjects.length * 100 + "%";
 	console.log(vraag + " + " + subjects.length + " + " + (vraag + 1) / subjects.length * 100);
-}// laat de vragen en de progress bar zien op de pagina
+}
 
+/*kijkt of er vragen overgeslagen zijn, berekent de scores van de partijen 
+die gekozen zijn door de gebruiker, laat de gekozen vragen door de gebruiker 
+dubbel tellen en zet de antwoorden van de berekening op de pagina */
 function scores(){
-	var overgeslagen = false;
-
-	for (var i = antwoorden.length - 1; i >= 0; i--) {
-		if (antwoorden[i] == 'overslaan') {
-			overgeslagen = true;
-			vraag = i;
-		}	
-	}
-
-	if (overgeslagen === false) {
 		for (let a in subjects) {
 			var partijen = 0;
 			for (let b in subjects[a].parties) {
@@ -81,15 +94,26 @@ function scores(){
 						}
 					}
 				}
-				console.log(subjects[a].title + ' ' + subjects[a].parties[partijen].position + ' ' + antwoorden[a])
-				console.log(totaleScore[partijen])
 				partijen++
-				/*console.log("het einde van een position")*/
+				
 			}//vergelijkt de ingevulde antwoorden met de antwoorden van een partij
-			/*console.log("het einde van een subject " + subjects[a].title)*/
 		}// loopt door alle partijen heen
 
 		document.getElementById("partijLijst").remove()
+
+		if (seculiere === true) {
+			for(let i in parties){
+				if (parties[i].secular === true) {
+					meeTellen[i] = parties[i].name;
+				}
+			}
+		}else if (groot === true) {
+			for(let i in parties){
+				if (parties[i].size >= grotePartij) {
+					meeTellen[i] = parties[i].name;
+				}
+			}
+		}
 
 		totaleScore.sort(dynamicSort("score"));
 
@@ -103,11 +127,8 @@ function scores(){
 			}
 		}//laat de partijen op de pagina zien
 		
-	}else {
-		alert("je hebt een vraag overgeslagen")
-		zetVragen();
-	}//Geeft een alert als je een vraag hebt overgeslagen en brengt je terug naar die vraag
-}
+	}
+
 
 function dynamicSort(property) {
     var sortOrder = 1;
@@ -116,32 +137,31 @@ function dynamicSort(property) {
         property = property.substr(1);
     }
     return function (a,b) {
-        /* next line works with strings and numbers, 
-         * and you may want to customize it to your needs
-         */
         var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
         return result * sortOrder;
     }
 }//sorteert arrays met objects
 
+//laat de onderwerpen zien waaruit de gebruiker kan kiezen om dubbel mee te laten tellen.
 function laatOnderwerpenZien(){
 	document.getElementById("vragen").remove();
 	for (var i = 0; i <= subjects.length - 1; i++) {
-			var creatie = document.createElement("PARAGRAPH");
-			document.getElementById("onderwerpLijst").appendChild(creatie);
-			var tweedeCreatie = document.createElement("BR");
-			document.getElementById("onderwerpLijst").appendChild(tweedeCreatie);
-			creatie.id = i;
-			creatie.innerHTML = subjects[i].title;
-			creatie.setAttribute('onclick', 'onderwerpenLatenTellen("' + i + '")');
-		}
+		var creatie = document.createElement("PARAGRAPH");
+		document.getElementById("onderwerpLijst").appendChild(creatie);
+		var tweedeCreatie = document.createElement("BR");
+		document.getElementById("onderwerpLijst").appendChild(tweedeCreatie);
+		creatie.id = i;
+		creatie.innerHTML = subjects[i].title;
+		creatie.setAttribute('onclick', 'onderwerpenLatenTellen("' + i + '")');
+	}
 
-			var creatie = document.createElement("PARAGRAPH");
-			document.getElementById("onderwerpLijst").appendChild(creatie);
-			creatie.innerHTML = "Volgende";
-			creatie.onclick = function() {laatPartijenZien();};
+	var creatie = document.createElement("PARAGRAPH");
+	document.getElementById("onderwerpLijst").appendChild(creatie);
+	creatie.innerHTML = "Volgende";
+	creatie.onclick = function() {laatPartijenZien();};
 }
 
+//als de gebruiker op een knop klikt dan word het opderwerp dat op die knop stond opgeslagen.
 function onderwerpenLatenTellen(id){
 	if (dubbelTellen[id] == subjects[id].title) {
 		dubbelTellen[id] = null;
@@ -150,8 +170,26 @@ function onderwerpenLatenTellen(id){
 	}
 }
 
+/*laat de partijen zien waaruit de gebruiker kan kiezen om mee te laten tellen.
+De gebruiker krijgt ook 2 andere knoppen. Een om allen de grote partijen te
+laten zien en een om alleen de seculiere partijen te laten zien.*/
 function laatPartijenZien(){
-	document.getElementById("onderwerpLijst").remove()
+	document.getElementById("onderwerpLijst").remove();
+
+	var creatie = document.createElement("PARAGRAPH");
+	document.getElementById("partijLijst").appendChild(creatie);
+	var tweedeCreatie = document.createElement("BR");
+	document.getElementById("partijLijst").appendChild(tweedeCreatie);
+	creatie.innerHTML = 'Selecteer grote partijen';
+	creatie.onclick = function() {groot = true};
+
+	var creatie = document.createElement("PARAGRAPH");
+	document.getElementById("partijLijst").appendChild(creatie);
+	var tweedeCreatie = document.createElement("BR");
+	document.getElementById("partijLijst").appendChild(tweedeCreatie);
+	creatie.innerHTML = 'Selecteer seculiere partijen';
+	creatie.onclick = function() {seculiere = true};
+
 	for (var i = 0; i <= parties.length - 1; i++) {
 			var creatie = document.createElement("PARAGRAPH");
 			document.getElementById("partijLijst").appendChild(creatie);
@@ -168,7 +206,7 @@ function laatPartijenZien(){
 			creatie.onclick = function() {scores();};
 }
 
-
+//als de gebruiker op een knop klikt dan word de partij die op de knop stond opgeslagen.
 function partijLatenTellen(id) {	
 	if (meeTellen[id] == parties[id].name) {
 		meeTellen[id] = null;
