@@ -2,6 +2,7 @@ var vraag = 0;
 var antwoorden = [];
 var totaleScore = [];
 var meeTellen = [];
+var dubbelTellen = [];
 
 for (let i in parties) {
 	totaleScore[i] = {
@@ -17,22 +18,7 @@ function volgende() {
 
 	if (vraag === subjects.length) {
 		//button voor grote partijen
-
-		for (var i = 0; i <= parties.length - 1; i++) {
-			var creatie = document.createElement("PARAGRAPH");
-			document.getElementById("partijResultaten").appendChild(creatie);
-			var tweedeCreatie = document.createElement("BR");
-			document.getElementById("partijResultaten").appendChild(tweedeCreatie);
-			creatie.id = i;
-			creatie.innerHTML = parties[i].name;
-			/*creatie.onclick = function() {partijLatenTellen(i ,i);};*/
-			creatie.setAttribute('onclick', 'partijLatenTellen("' + i + '")');
-		}
-
-		var creatie = document.createElement("PARAGRAPH");
-		document.getElementById("partijResultaten").appendChild(creatie);
-		creatie.innerHTML = "Volgende";
-		creatie.onclick = function() {scores();};
+		laatOnderwerpenZien();
 		
 	}else {	
 		zetVragen()
@@ -83,29 +69,36 @@ function scores(){
 	if (overgeslagen === false) {
 		for (let a in subjects) {
 			var partijen = 0;
-
 			for (let b in subjects[a].parties) {
 				if (subjects[a].parties[partijen].position === antwoorden[a]) {
-					totaleScore[a].score = totaleScore[a].score + 1;
-					console.log(totaleScore[a])
+					for (let c in subjects[a].parties) {
+						if (totaleScore[c].partij === subjects[a].parties[partijen].name) {
+							if (subjects[a].title === dubbelTellen[a]) {
+								totaleScore[c].score = totaleScore[c].score + 2;
+							}else {
+								totaleScore[c].score = totaleScore[c].score + 1;
+							}
+						}
+					}
 				}
+				console.log(subjects[a].title + ' ' + subjects[a].parties[partijen].position + ' ' + antwoorden[a])
+				console.log(totaleScore[partijen])
 				partijen++
 				/*console.log("het einde van een position")*/
 			}//vergelijkt de ingevulde antwoorden met de antwoorden van een partij
 			/*console.log("het einde van een subject " + subjects[a].title)*/
 		}// loopt door alle partijen heen
 
-		document.getElementById("vragen").remove()
+		document.getElementById("partijLijst").remove()
 
 		totaleScore.sort(dynamicSort("score"));
 
-		for (let c in subjects) {
-			console.log(meeTellen[c] , totaleScore[c].partij)
+		for (var c = subjects.length - 1; c >= 0; c--) {//moet -- blijven anders worden de partijen van klein naar groot weergegeven. evt docent vragen hoe dit gedaan kan worden met let x in y
 			for (let d in totaleScore) {
 				if (meeTellen[d] == totaleScore[c].partij) {
 					var creatie = document.createElement("PARAGRAPH");
 					document.getElementById("partijResultaten").appendChild(creatie);	
-					creatie.innerHTML = totaleScore[c].partij + " " + (totaleScore[c].score / subjects.length * 100)+ "%" + "<br>";
+					creatie.innerHTML = totaleScore[c].partij + " " + (totaleScore[c].score / (subjects.length + dubbelTellen.length) * 100)+ "%" + "<br>";
 				}
 			}
 		}//laat de partijen op de pagina zien
@@ -130,6 +123,50 @@ function dynamicSort(property) {
         return result * sortOrder;
     }
 }//sorteert arrays met objects
+
+function laatOnderwerpenZien(){
+	document.getElementById("vragen").remove();
+	for (var i = 0; i <= subjects.length - 1; i++) {
+			var creatie = document.createElement("PARAGRAPH");
+			document.getElementById("onderwerpLijst").appendChild(creatie);
+			var tweedeCreatie = document.createElement("BR");
+			document.getElementById("onderwerpLijst").appendChild(tweedeCreatie);
+			creatie.id = i;
+			creatie.innerHTML = subjects[i].title;
+			creatie.setAttribute('onclick', 'onderwerpenLatenTellen("' + i + '")');
+		}
+
+			var creatie = document.createElement("PARAGRAPH");
+			document.getElementById("onderwerpLijst").appendChild(creatie);
+			creatie.innerHTML = "Volgende";
+			creatie.onclick = function() {laatPartijenZien();};
+}
+
+function onderwerpenLatenTellen(id){
+	if (dubbelTellen[id] == subjects[id].title) {
+		dubbelTellen[id] = null;
+	}else {	
+		dubbelTellen[id] = subjects[id].title;
+	}
+}
+
+function laatPartijenZien(){
+	document.getElementById("onderwerpLijst").remove()
+	for (var i = 0; i <= parties.length - 1; i++) {
+			var creatie = document.createElement("PARAGRAPH");
+			document.getElementById("partijLijst").appendChild(creatie);
+			var tweedeCreatie = document.createElement("BR");
+			document.getElementById("partijLijst").appendChild(tweedeCreatie);
+			creatie.id = i;
+			creatie.innerHTML = parties[i].name;
+			creatie.setAttribute('onclick', 'partijLatenTellen("' + i + '")');
+		}
+
+			var creatie = document.createElement("PARAGRAPH");
+			document.getElementById("partijLijst").appendChild(creatie);
+			creatie.innerHTML = "Volgende";
+			creatie.onclick = function() {scores();};
+}
 
 
 function partijLatenTellen(id) {	
