@@ -1,7 +1,7 @@
 var vraag = 0;
 var antwoorden = [];
 var totaleScore = [];
-var dubbelleVragen = []; 
+var meeTellen = [];
 
 for (let i in parties) {
 	totaleScore[i] = {
@@ -9,14 +9,31 @@ for (let i in parties) {
 		"score" : 0
 	}
 }
-
+//dit laat de volgende vraag zien
 function volgende() {
 	if (vraag !== 0) {
 		antwoorden[vraag - 1] = arguments[0]
 	} 
 
 	if (vraag === subjects.length) {
-		scores();
+		//button voor grote partijen
+
+		for (var i = 0; i <= parties.length - 1; i++) {
+			var creatie = document.createElement("PARAGRAPH");
+			document.getElementById("partijResultaten").appendChild(creatie);
+			var tweedeCreatie = document.createElement("BR");
+			document.getElementById("partijResultaten").appendChild(tweedeCreatie);
+			creatie.id = i;
+			creatie.innerHTML = parties[i].name;
+			/*creatie.onclick = function() {partijLatenTellen(i ,i);};*/
+			creatie.setAttribute('onclick', 'partijLatenTellen("' + i + '")');
+		}
+
+		var creatie = document.createElement("PARAGRAPH");
+		document.getElementById("partijResultaten").appendChild(creatie);
+		creatie.innerHTML = "Volgende";
+		creatie.onclick = function() {scores();};
+		
 	}else {	
 		zetVragen()
 	} 
@@ -73,29 +90,31 @@ function scores(){
 					console.log(totaleScore[a])
 				}
 				partijen++
-				console.log("het einde van een position")
-			}//vergelijkt een de ingevulde antwoorden met de antwoorden van een partij
-			console.log("het einde van een subject " + subjects[a].title)
+				/*console.log("het einde van een position")*/
+			}//vergelijkt de ingevulde antwoorden met de antwoorden van een partij
+			/*console.log("het einde van een subject " + subjects[a].title)*/
 		}// loopt door alle partijen heen
 
 		document.getElementById("vragen").remove()
 
-		for (var c = subjects.length - 1; c >= 0; c--) {
-			var creatie = document.createElement("PARAGRAPH");
-			document.getElementById("partijResultaten").appendChild(creatie);	
-			totaleScore.sort(dynamicSort("score"));
-			creatie.innerHTML = totaleScore[c].partij + " " + (totaleScore[c].score / subjects.length * 100)+ "%" + "<br>";
+		totaleScore.sort(dynamicSort("score"));
+
+		for (let c in subjects) {
+			console.log(meeTellen[c] , totaleScore[c].partij)
+			for (let d in totaleScore) {
+				if (meeTellen[d] == totaleScore[c].partij) {
+					var creatie = document.createElement("PARAGRAPH");
+					document.getElementById("partijResultaten").appendChild(creatie);	
+					creatie.innerHTML = totaleScore[c].partij + " " + (totaleScore[c].score / subjects.length * 100)+ "%" + "<br>";
+				}
+			}
 		}//laat de partijen op de pagina zien
-		//varriabel totalescore gebruiken om partijen op volgorden te zetten.
+		
 	}else {
 		alert("je hebt een vraag overgeslagen")
 		zetVragen();
 	}//Geeft een alert als je een vraag hebt overgeslagen en brengt je terug naar die vraag
 }
-
-
-
-
 
 function dynamicSort(property) {
     var sortOrder = 1;
@@ -112,31 +131,12 @@ function dynamicSort(property) {
     }
 }//sorteert arrays met objects
 
-/*Welke onderwerpen vindt u belangrijk?
-	Een loop maken die elke subjects[].title uit testdata.js pakt en 
-	op de pagina zet als knop.
 
-	in de function "scores" bij de derde for loop een if statement 
-	zetten en de geselecteerde statements dubbel mee laten tellen
-
-Kies de partijen die u mee wilt nemen in het resultaat
-	Een loop maken die elke parties[].name uit testdata.js pakt en 
-	op de pagina zet als knop.
-
-	in de function "scores" bij de LAATSTE for loop een if statement 
-	zetten en de geselecteerde partijen op de pagina neerzet.
-
-
-
-	*/
-
-	for (let c in subjects) {
-		subjects[c].title
-
-		var creatie = document.createElement("BUTTON");
-		document.getElementById("partijResultaten").appendChild(creatie);
-		creatie.innerHTML = subjects[c].title
-		creatie.onclick = 
-			
+function partijLatenTellen(id) {	
+	if (meeTellen[id] == parties[id].name) {
+		meeTellen[id] = null;
+	}else {	
+		meeTellen[id] = parties[id].name;
 	}
-
+	console.log(meeTellen)
+}
