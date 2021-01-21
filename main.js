@@ -117,7 +117,7 @@ function berekenScores(){
 
 		totaleScore.sort(dynamicSort("score"));
 
-		for (var c = subjects.length - 1; c >= 0; c--) {//moet -- blijven anders worden de partijen van klein naar groot weergegeven. evt docent vragen hoe dit gedaan kan worden met let x in y
+		for (var c = parties.length - 1; c >= 0; c--) {//moet -- blijven anders worden de partijen van klein naar groot weergegeven. evt docent vragen hoe dit gedaan kan worden met let x in y
 			for (let d in totaleScore) {
 				if (meeTellen[d] == totaleScore[c].partij) {
 					var creatie = document.createElement("PARAGRAPH");
