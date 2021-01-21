@@ -79,7 +79,7 @@ function zetVragen(){
 /*kijkt of er vragen overgeslagen zijn, berekent de scores van de partijen 
 die gekozen zijn door de gebruiker, laat de gekozen vragen door de gebruiker 
 dubbel tellen en zet de antwoorden van de berekening op de pagina */
-function scores(){
+function berekenScores(){
 		for (let a in subjects) {
 			var partijen = 0;
 			for (let b in subjects[a].parties) {
@@ -122,7 +122,7 @@ function scores(){
 				if (meeTellen[d] == totaleScore[c].partij) {
 					var creatie = document.createElement("PARAGRAPH");
 					document.getElementById("partijResultaten").appendChild(creatie);	
-					creatie.innerHTML = totaleScore[c].partij + " " + (totaleScore[c].score / (subjects.length + dubbelTellen.length) * 100)+ "%" + "<br>";
+					creatie.innerHTML = totaleScore[c].partij + " " + Math.ceil(totaleScore[c].score / (subjects.length + dubbelTellen.length) * 100)+ "%" + "<br>";
 				}
 			}
 		}//laat de partijen op de pagina zien
@@ -203,7 +203,7 @@ function laatPartijenZien(){
 			var creatie = document.createElement("PARAGRAPH");
 			document.getElementById("partijLijst").appendChild(creatie);
 			creatie.innerHTML = "Volgende";
-			creatie.onclick = function() {scores();};
+			creatie.onclick = function() {berekenScores();};
 }
 
 //als de gebruiker op een knop klikt dan word de partij die op de knop stond opgeslagen.
