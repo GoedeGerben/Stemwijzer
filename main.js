@@ -80,54 +80,53 @@ function zetVragen(){
 die gekozen zijn door de gebruiker, laat de gekozen vragen door de gebruiker 
 dubbel tellen en zet de antwoorden van de berekening op de pagina */
 function berekenScores(){
-		for (let a in subjects) {
-			var partijen = 0;
-			for (let b in subjects[a].parties) {
-				if (subjects[a].parties[partijen].position === antwoorden[a]) {
-					for (let c in subjects[a].parties) {
-						if (totaleScore[c].partij === subjects[a].parties[partijen].name) {
-							if (subjects[a].title === dubbelTellen[a]) {
-								totaleScore[c].score = totaleScore[c].score + 2;
-							}else {
-								totaleScore[c].score = totaleScore[c].score + 1;
-							}
+	for (let a in subjects) {
+		var partijen = 0;
+		for (let b in subjects[a].parties) {
+			if (subjects[a].parties[partijen].position === antwoorden[a]) {
+				for (let c in subjects[a].parties) {
+					if (totaleScore[c].partij === subjects[a].parties[partijen].name) {
+						if (subjects[a].title === dubbelTellen[a]) {
+							totaleScore[c].score = totaleScore[c].score + 2;
+						}else {
+							totaleScore[c].score = totaleScore[c].score + 1;
 						}
 					}
 				}
-				partijen++
-				
-			}//vergelijkt de ingevulde antwoorden met de antwoorden van een partij
-		}// loopt door alle partijen heen
-
-		document.getElementById("partijLijst").remove()
-
-		if (seculiere === true) {
-			for(let i in parties){
-				if (parties[i].secular === true) {
-					meeTellen[i] = parties[i].name;
-				}
 			}
-		}else if (groot === true) {
-			for(let i in parties){
-				if (parties[i].size >= grotePartij) {
-					meeTellen[i] = parties[i].name;
-				}
+			partijen++
+			
+		}//vergelijkt de ingevulde antwoorden met de antwoorden van een partij
+	}// loopt door alle partijen heen
+
+	document.getElementById("partijLijst").remove()
+
+	if (seculiere === true) {
+		for(let i in parties){
+			if (parties[i].secular === true) {
+				meeTellen[i] = parties[i].name;
 			}
 		}
-
-		totaleScore.sort(dynamicSort("score"));
-
-		for (var c = parties.length - 1; c >= 0; c--) {//moet -- blijven anders worden de partijen van klein naar groot weergegeven. evt docent vragen hoe dit gedaan kan worden met let x in y
-			for (let d in totaleScore) {
-				if (meeTellen[d] == totaleScore[c].partij) {
-					var creatie = document.createElement("PARAGRAPH");
-					document.getElementById("partijResultaten").appendChild(creatie);	
-					creatie.innerHTML = totaleScore[c].partij + " " + Math.ceil(totaleScore[c].score / (subjects.length + dubbelTellen.length) * 100)+ "%" + "<br>";
-				}
+	}else if (groot === true) {
+		for(let i in parties){
+			if (parties[i].size >= grotePartij) {
+				meeTellen[i] = parties[i].name;
 			}
-		}//laat de partijen op de pagina zien
-		
+		}
 	}
+
+	totaleScore.sort(dynamicSort("score"));
+
+	for (var c = parties.length - 1; c >= 0; c--) {//moet -- blijven anders worden de partijen van klein naar groot weergegeven. evt docent vragen hoe dit gedaan kan worden met let x in y
+		for (let d in totaleScore) {
+			if (meeTellen[d] == totaleScore[c].partij) {
+				var creatie = document.createElement("PARAGRAPH");
+				document.getElementById("partijResultaten").appendChild(creatie);	
+				creatie.innerHTML = totaleScore[c].partij + " " + Math.ceil(totaleScore[c].score / (subjects.length + dubbelTellen.length) * 100)+ "%" + "<br>";
+			}
+		}
+	}//laat de partijen op de pagina zien
+}
 
 
 function dynamicSort(property) {
