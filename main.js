@@ -64,16 +64,41 @@ function vorige() {
 function zetVragen(){
 	document.getElementById("stelling").innerHTML = (vraag + 1) + ". " + subjects[vraag].title;
 	document.getElementById("contentStelling").innerHTML = subjects[vraag].statement;
-	document.getElementById("pro").style.backgroundColor = "black";
+	document.getElementById("voor").style.backgroundColor = "black";
 	document.getElementById("geen").style.backgroundColor = "black";
-	document.getElementById("contra").style.backgroundColor = "black";
+	document.getElementById("tegen").style.backgroundColor = "black";
 
-	if (antwoorden[vraag] !== undefined && antwoorden[vraag] !== 'overslaan') {
-		document.getElementById(antwoorden[vraag]).style.backgroundColor = "blue";
+	if (antwoorden[vraag] === 'pro') {
+		document.getElementById('voor').style.backgroundColor = "blue";
+	}else if (antwoorden[vraag] === 'none') {
+		document.getElementById('geen').style.backgroundColor = "blue";
+	}else if (antwoorden[vraag] === 'contra') {
+		document.getElementById('tegen').style.backgroundColor = "blue";
 	}
 
 	document.getElementById("progressBar").style.width = (vraag + 1) / subjects.length * 100 + "%";
 	console.log(vraag + " + " + subjects.length + " + " + (vraag + 1) / subjects.length * 100);
+}
+
+//laat de meningen van de partijen voor een vraag zien.
+function partijMeningen(){
+	for (let a in subjects[vraag].parties) {
+		var creatie = document.createElement("PARAGRAPH");
+		document.getElementById(subjects[vraag - 1].parties[a].position).appendChild(creatie);
+		creatie.innerHTML = 'De mening van ' + subjects[vraag - 1].parties[a].name + ' is ' + subjects[vraag - 1].parties[a].position + '. ';
+		console.log(subjects[vraag - 1].parties[a].name + " positie " + subjects[vraag - 1].parties[a].position)
+	}
+
+	document.getElementById('partijMening').onclick = function() {verwijderPartijMeningen();};
+}
+
+//haalt de meningen van de partijen weg van de pagina
+function verwijderPartijMeningen() {
+	document.getElementById('pro').innerHTML = '';
+	document.getElementById('none').innerHTML = '';
+	document.getElementById('contra').innerHTML = '';
+
+	document.getElementById('partijMening').onclick = function() {partijMeningen();};
 }
 
 /*kijkt of er vragen overgeslagen zijn, berekent de scores van de partijen 

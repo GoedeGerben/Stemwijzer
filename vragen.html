@@ -18,13 +18,16 @@
 			<div id="contentStelling">content</div>
 
 			<div id="buttons">
-				<button id="pro" class="w3-button w3-round-large w3-hover-blue" style="background-color: black; color: white" onclick="volgende('pro')">eens</button>
+				<button id="voor" class="w3-button w3-round-large w3-hover-blue" style="background-color: black; color: white" onclick="volgende('pro')">eens</button>
 				<button id="geen" class="w3-button w3-round-large w3-hover-blue" style="background-color: black; color: white" onclick="volgende('none')">Geen van beide</button>
-				<button id="contra" class="w3-button w3-round-large w3-hover-blue" style="background-color: black; color: white" onclick="volgende('contra')">oneens</button>
+				<button id="tegen" class="w3-button w3-round-large w3-hover-blue" style="background-color: black; color: white" onclick="volgende('contra')">oneens</button>
 				<p id="overslaan" class="w3-text-grey" onclick="volgende('overslaan')">Sla deze vraag over</p>
 			</div>
 
-			<i class="fas fa-comments w3-text-blue"></i>Wat vinden de partijen?
+			<i class="fas fa-comments w3-text-blue"><p id="partijMening" class="w3-text-black" onclick="partijMeningen()">Wat vinden de partijen?</p></i>
+			<p id="pro"></p>
+			<p id="none"></p>
+			<p id="contra"></p>
 		</div>
 
 		<div id="onderwerpLijst"></div>
@@ -37,3 +40,5 @@
 	<script type="text/javascript" src="main.js"></script>
 </body>
 </html>
+
+<!-- Ik heb Job walst zijn code beoordeeld  -->
