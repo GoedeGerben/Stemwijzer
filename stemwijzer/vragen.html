@@ -5,8 +5,8 @@
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 	<script src="https://kit.fontawesome.com/9db944ed37.js" crossorigin="anonymous"></script>
 </head>
-<body class="w3-xlarge" onload="volgende()" style="background: url('afbeeldingen/achtergrond.jpg') no-repeat; background-size: 100vw 100vh;">
-	<div class="w3-display-middle" style="background-color: white;">
+<body class="w3-xlarge" onload="volgende()" style="background: url('afbeeldingen/achtergrond.jpg'); background-size: 100vw;">
+	<div style="background-color: white; margin: 5% 20%; overflow: auto;">
 		<div>
 	  		<div id="progressBar" class="w3-blue" style="height:12px; width:5%"></div>
 		</div><!-- progress bar laat zien op welke vraag je zit. -->
@@ -24,10 +24,13 @@
 				<p id="overslaan" class="w3-text-grey" onclick="volgende('overslaan')">Sla deze vraag over</p>
 			</div>
 
-			<i class="fas fa-comments w3-text-blue"><p id="partijMening" class="w3-text-black" onclick="partijMeningen()">Wat vinden de partijen?</p></i>
-			<p id="pro"></p>
-			<p id="none"></p>
-			<p id="contra"></p>
+			<i class="fas fa-comments w3-text-blue" style="float:left; display:inline; padding-right: 10px;"></i>
+			<p id="partijMening" class="w3-text-black" onclick="partijMeningen()">Wat vinden de partijen?</p>
+			
+			<p id="pro" style="width:33%; float:left; display: inline-block;"></p>
+			<p id="none" style="width: 33%; float:left; display: inline-block;"></p>
+			<p id="contra" style="width: 33%; float:left; display: inline-block;"></p>
+			
 		</div>
 
 		<div id="onderwerpLijst"></div>

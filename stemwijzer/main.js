@@ -68,6 +68,8 @@ function zetVragen(){
 	document.getElementById("geen").style.backgroundColor = "black";
 	document.getElementById("tegen").style.backgroundColor = "black";
 
+	verwijderPartijMeningen();
+
 	if (antwoorden[vraag] === 'pro') {
 		document.getElementById('voor').style.backgroundColor = "blue";
 	}else if (antwoorden[vraag] === 'none') {
@@ -85,7 +87,7 @@ function partijMeningen(){
 	for (let a in subjects[vraag].parties) {
 		var creatie = document.createElement("PARAGRAPH");
 		document.getElementById(subjects[vraag - 1].parties[a].position).appendChild(creatie);
-		creatie.innerHTML = 'De mening van ' + subjects[vraag - 1].parties[a].name + ' is ' + subjects[vraag - 1].parties[a].position + '. ';
+		creatie.innerHTML = subjects[vraag - 1].parties[a].name + '<br>';
 		console.log(subjects[vraag - 1].parties[a].name + " positie " + subjects[vraag - 1].parties[a].position)
 	}
 
