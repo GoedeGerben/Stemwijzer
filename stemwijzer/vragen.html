@@ -6,7 +6,7 @@
 	<script src="https://kit.fontawesome.com/9db944ed37.js" crossorigin="anonymous"></script>
 </head>
 <body class="w3-xlarge" onload="volgende()" style="background: url('afbeeldingen/achtergrond.jpg'); background-size: 100vw;">
-	<div style="background-color: white; margin: 5% 20%; overflow: auto;">
+	<div class="w3-white" style="margin: 5% 20%; overflow: auto;">
 		<div>
 	  		<div id="progressBar" class="w3-blue" style="height:12px; width:5%"></div>
 		</div><!-- progress bar laat zien op welke vraag je zit. -->
@@ -18,18 +18,18 @@
 			<div id="contentStelling">content</div>
 
 			<div id="buttons">
-				<button id="voor" class="w3-button w3-round-large w3-hover-blue" style="background-color: black; color: white" onclick="volgende('pro')">eens</button>
-				<button id="geen" class="w3-button w3-round-large w3-hover-blue" style="background-color: black; color: white" onclick="volgende('none')">Geen van beide</button>
-				<button id="tegen" class="w3-button w3-round-large w3-hover-blue" style="background-color: black; color: white" onclick="volgende('contra')">oneens</button>
+				<button id="voor" class="w3-button w3-round-large w3-hover-blue w3-black" onclick="volgende('pro')">eens</button>
+				<button id="geen" class="w3-button w3-round-large w3-hover-blue w3-black" onclick="volgende('none')">Geen van beide</button>
+				<button id="tegen" class="w3-button w3-round-large w3-hover-blue w3-black" onclick="volgende('contra')">oneens</button>
 				<p id="overslaan" class="w3-text-grey" onclick="volgende('overslaan')">Sla deze vraag over</p>
 			</div>
 
-			<i class="fas fa-comments w3-text-blue" style="float:left; display:inline; padding-right: 10px;"></i>
+			<i class="fas fa-comments w3-text-blue w3-left" style="display:inline; padding-right: 10px;"></i>
 			<p id="partijMening" class="w3-text-black" onclick="partijMeningen()">Wat vinden de partijen?</p>
 			
-			<p id="pro" style="width:33%; float:left; display: inline-block;"></p>
-			<p id="none" style="width: 33%; float:left; display: inline-block;"></p>
-			<p id="contra" style="width: 33%; float:left; display: inline-block;"></p>
+			<p id="pro" class="w3-left"  style="width:33%; display: inline-block;"></p>
+			<p id="none" class="w3-left" style="width: 33%; display: inline-block;"></p>
+			<p id="contra" class="w3-left" style="width: 33%; display: inline-block;"></p>
 			
 		</div>
 
