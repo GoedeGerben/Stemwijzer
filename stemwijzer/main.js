@@ -142,7 +142,7 @@ function berekenScores(){
 		}
 	}
 
-	totaleScore.sort(dynamicSort("score"));
+	totaleScore.sort(sorteren("score"));
 
 	for (var c = parties.length - 1; c >= 0; c--) {//moet -- blijven anders worden de partijen van klein naar groot weergegeven. evt docent vragen hoe dit gedaan kan worden met let x in y
 		for (let d in totaleScore) {
@@ -155,18 +155,21 @@ function berekenScores(){
 	}//laat de partijen op de pagina zien
 }
 
-
-function dynamicSort(property) {
-    var sortOrder = 1;
-    if(property[0] === "-") {
-        sortOrder = -1;
-        property = property.substr(1);
+//array.sort(sorteren("object wat van groot naar klein gesorteerd moet worden"))
+//sorteert een array met objects.
+function sorteren(gesorteerd) {
+    var sorteerOrde = 1;
+    if(gesorteerd[0] === "-") {
+        sorteerOrde = -1;
+        gesorteerd = gesorteerd.substr(1);
     }
     return function (a,b) {
-        var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
-        return result * sortOrder;
+        var resultaat = (a[gesorteerd] < b[gesorteerd]) ? -1 : (a[gesorteerd] > b[gesorteerd]) ? 1 : 0;
+        return resultaat * sorteerOrde;
     }
-}//sorteert arrays met objects
+}
+
+
 
 //laat de onderwerpen zien waaruit de gebruiker kan kiezen om dubbel mee te laten tellen.
 function laatOnderwerpenZien(){
